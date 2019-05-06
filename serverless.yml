@@ -1,0 +1,21 @@
+service: what-to-do-alexa
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: ap-northeast-1
+
+package:
+  individually: true
+
+plugins:
+  - serverless-webpack
+
+functions:
+  WhatToDoAlexa:
+    handler: src/what-to-do-alexa/handler.handler
+    events:
+      - alexaSkill:
+        appId: YAML.load_file("./variables.yml").alexaSkill.appId
+        enabled: true
